@@ -92,6 +92,8 @@ export const CreateAccount = () => {
               pattern:
                 /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
             })}
+            name="email"
+            required
             type="email"
             placeholder="Email"
             className="input"
@@ -106,6 +108,8 @@ export const CreateAccount = () => {
             {...register("password", {
               required: "Password is required",
             })}
+            name="password"
+            required
             type="password"
             placeholder="Password"
             className="input"
@@ -116,7 +120,11 @@ export const CreateAccount = () => {
           {errors.password?.type === "minLength" && (
             <FormError errorMessage="Password must be more than 10 chars." />
           )}
-          <select {...register("role", { required: true })} className="input">
+          <select
+            {...register("role", { required: true })}
+            name="role"
+            className="input"
+          >
             {Object.keys(UserRole).map((role, index) => (
               <option key={index}>{role}</option>
             ))}
@@ -134,7 +142,7 @@ export const CreateAccount = () => {
         </form>
         <div>
           Already have an account?{" "}
-          <Link to="/login" className="text-lime-600 hover:underline">
+          <Link to="/" className="text-lime-600 hover:underline">
             Log in now
           </Link>
         </div>
