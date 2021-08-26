@@ -45,7 +45,7 @@ export const Login = () => {
       login: { ok, token },
     } = data;
     if (ok && token) {
-      console.log(token); //JWT를 얻을있다.
+      console.log("JWT:", token); //JWT를 얻을수있다.
       localStorage.setItem(LOCALSTORAGE_TOKEN, token);
       authTokenVar(token);
       isLoggedInVar(true);
@@ -90,7 +90,7 @@ export const Login = () => {
               pattern:
                 /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
             })}
-            name="email"
+            //name="email"
             required
             type="email"
             placeholder="Email"
@@ -107,7 +107,7 @@ export const Login = () => {
               required: "Password is required",
             })}
             required
-            name="password"
+            //name="password"
             type="password"
             placeholder="Password"
             className="input"

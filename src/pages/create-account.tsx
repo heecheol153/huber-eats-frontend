@@ -50,7 +50,7 @@ export const CreateAccount = () => {
     if (ok) {
       // redirect
       alert("Account Created! Log in now!");
-      history.push("/login");
+      history.push("/");
     }
   };
   const [
@@ -92,7 +92,7 @@ export const CreateAccount = () => {
               pattern:
                 /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
             })}
-            name="email"
+            //name="email"
             required
             type="email"
             placeholder="Email"
@@ -108,7 +108,7 @@ export const CreateAccount = () => {
             {...register("password", {
               required: "Password is required",
             })}
-            name="password"
+            //name="password"
             required
             type="password"
             placeholder="Password"
@@ -122,7 +122,7 @@ export const CreateAccount = () => {
           )}
           <select
             {...register("role", { required: true })}
-            name="role"
+            //name="role"
             className="input"
           >
             {Object.keys(UserRole).map((role, index) => (
