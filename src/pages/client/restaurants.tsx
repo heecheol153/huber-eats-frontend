@@ -1,9 +1,10 @@
 import { gql, useQuery } from "@apollo/client";
-import { url } from "inspector";
 import React, { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { Restaurant } from "../../components/restaurant";
+import { RESTAURANT_FRAGMENT } from "../../fragments";
 import {
   restaurantsPageQuery,
   restaurantsPageQueryVariables,
@@ -28,21 +29,15 @@ const RESTAURANTS_QUERY = gql`
       totalPages
       totalResults
       results {
-        id
-        name
-        coverImg
-        category {
-          name
-        }
-        address
-        isPromoted
+        ...RestaurantParts
       }
     }
   }
+  ${RESTAURANT_FRAGMENT}
 `;
 
 interface IFormProps {
-  searchTerm:string;
+  searchTerm: string;
 }
 
 export const Restaurants = () => {
@@ -62,17 +57,20 @@ export const Restaurants = () => {
   const { register, handleSubmit, getValues } = useForm<IFormProps>();
   const history = useHistory();
   const onSearchSubmit = () => {
-    const{ searchTerm } = getValues();
+    const { searchTerm } = getValues();
     history.push({
       pathname: "/search",
-       search: `$term=${searchTerm}`,
+      search: `?term=${searchTerm}`,
     });
   };
   return (
     <div>
-      <form onSubmit={handleSubmit(onSearchSubmit)} className="bg-gray-800 w-full py-40 flex items-center justify-center">
+      <Helmet>
+        <title>Home | Huber Eats</title>
+      </Helmet>
+      <form className="bg-gray-800 w-full py-40 flex items-center justify-center">
         <input
-          {...register("searchTerm", { required : true, min:3 })}
+          {...register("searchTerm", { required: true, min: 3 })}
           type="Search"
           className="input rounded-md border-0 w-3/4 md:w-3/12"
           placeholder="Search restaurants..."
@@ -81,9 +79,11 @@ export const Restaurants = () => {
       {!loading && (
         <div className="max-w-screen-2xl pb-20 mx-auto mt-8">
           <div className="flex justify-around max-w-sm mx-auto ">
-          <div className="grid mt-16 md:grid-cols-3 gap-x-5 gap-y-10">
             {data?.allCategories.categories?.map((category) => (
-              <div key={category.id} className="flex flex-col group items-center cursor-pointer">
+              <div
+                key={category.id}
+                className="flex flex-col group items-center cursor-pointer"
+              >
                 <div
                   className=" w-16 h-16 bg-cover group-hover:bg-gray-100 rounded-full"
                   style={{ backgroundImage: `url(${category.coverImg})` }}
@@ -94,7 +94,7 @@ export const Restaurants = () => {
               </div>
             ))}
           </div>
-          <div className="grid mt-16 grid-cols-3 gap-x-5 gap-y-10">
+          <div className="grid mt-16 md:grid-cols-3 gap-x-5 gap-y-10">
             {data?.restaurants.results?.map((restaurant) => (
               <Restaurant
                 key={restaurant.id}

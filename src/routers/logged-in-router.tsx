@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  Switch,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Header } from "../components/header";
 import { useMe } from "../hooks/useMe";
 import { NotFound } from "../pages/404";
@@ -30,9 +25,9 @@ const ClientRoutes = [
 
 export const LoggedInRouter = () => {
   const { data, loading, error } = useMe();
-  console.log("useMe data:", data);
-  console.log("useMe loading:", loading);
-  console.log("useMe error:", error);
+  //console.log("useMe data:", data);
+  //console.log("useMe loading:", loading);
+  //console.log("useMe error:", error);
   if (!data || loading || error) {
     return (
       <div className="h-screen flex justify-center items-center">
