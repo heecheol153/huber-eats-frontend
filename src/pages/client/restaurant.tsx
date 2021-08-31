@@ -42,7 +42,7 @@ export const Restaurant = () => {
   return (
     <div>
       <Helmet>
-        <title>{data?.restaurant.restaurant?.name || ""} | Nuber Eats</title>
+        <title>{data?.restaurant.restaurant?.name || ""} | Huber Eats</title>
       </Helmet>
       <div
         className=" bg-gray-800 bg-center bg-cover py-48"
