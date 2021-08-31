@@ -57,6 +57,7 @@
     "@types/react-helmet": "^6.1.2",
     "apollo": "^2.33.6",
     "autoprefixer": "^10.3.1",
+    "mock-apollo-client": "^1.2.0",
     "postcss": "^8.3.6",
     "tailwindcss": "^2.2.7"
   },

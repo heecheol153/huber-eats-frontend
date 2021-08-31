@@ -14,7 +14,7 @@ describe("<NotFound />", () => {
       </HelmetProvider>
     );
     await waitFor(() => {
-      expect(document.title).toBe("Not Found | Nuber Eats");
+      expect(document.title).toBe("Not Found | Huber Eats");
     });
   });
 });
