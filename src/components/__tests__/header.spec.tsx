@@ -66,6 +66,7 @@ describe("<Header />", () => {
       );
       await new Promise((resolve) => setTimeout(resolve, 0));
       expect(queryByText("Please verify your email.")).toBeNull();
+      //expect(queryByText("Please verify your email.")).toBe(null);
     });
   });
 });

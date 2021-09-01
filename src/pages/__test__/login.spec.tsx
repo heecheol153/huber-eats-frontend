@@ -6,6 +6,7 @@ import { Login, LOGIN_MUTATION } from "../login";
 import { HelmetProvider } from "react-helmet-async";
 import { BrowserRouter as Router } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
+import { debug } from "console";
 
 describe("<Login />", () => {
   let renderResult: RenderResult;
@@ -69,11 +70,12 @@ describe("<Login />", () => {
         login: {
           ok: true,
           token: "XXX",
-          error: null,
+          error: "mutation-error",
         },
       },
     });
     mockedClient.setRequestHandler(LOGIN_MUTATION, mockedMutationResponse);
+    jest.spyOn(Storage.prototype, "setItem");
     await waitFor(() => {
       userEvent.type(email, formData.email);
       userEvent.type(password, formData.password);
@@ -86,5 +88,9 @@ describe("<Login />", () => {
         password: formData.password,
       },
     });
+    //debug();
+    const errorMessage = getByRole("alert");
+    expect(errorMessage).toHaveTextContent(/mutation-error/i);
+    expect(localStorage.setItem).toHaveBeenCalledWith("huber-token", "XXX");
   });
 });

@@ -46,7 +46,7 @@ export const Login = () => {
     } = data;
     //console.log(data);
     if (ok && token) {
-      console.log("JWT:", token); //JWT를 얻을수있다.
+      //console.log("JWT:", token); //JWT를 얻을수있다.
       localStorage.setItem(LOCALSTORAGE_TOKEN, token);
       authTokenVar(token);
       isLoggedInVar(true);
