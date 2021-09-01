@@ -55,6 +55,7 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/cypress": "^8.0.0",
     "@types/react-helmet": "^6.1.2",
     "apollo": "^2.33.6",
     "autoprefixer": "^10.3.1",
