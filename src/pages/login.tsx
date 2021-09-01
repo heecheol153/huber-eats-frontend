@@ -14,7 +14,7 @@ import {
 } from "../__generated__/loginMutation";
 
 //mutation이름은 front-end를 위한것임,back-end로 안넘어간다.
-const LOGIN_MUTATION = gql`
+export const LOGIN_MUTATION = gql`
   mutation loginMutation($loginInput: LoginInput!) {
     login(input: $loginInput) {
       ok
@@ -44,6 +44,7 @@ export const Login = () => {
     const {
       login: { ok, token },
     } = data;
+    //console.log(data);
     if (ok && token) {
       console.log("JWT:", token); //JWT를 얻을수있다.
       localStorage.setItem(LOCALSTORAGE_TOKEN, token);
@@ -114,9 +115,6 @@ export const Login = () => {
           />
           {errors.password?.message && (
             <FormError errorMessage={errors.password?.message} />
-          )}
-          {errors.password?.type === "minLength" && (
-            <FormError errorMessage="Password must be more than 10 chars." />
           )}
           <Button
             canClick={formState.isValid}
