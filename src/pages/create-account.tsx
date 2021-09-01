@@ -13,7 +13,7 @@ import {
 import { UserRole } from "../__generated__/globalTypes";
 
 //mutation이름은 front-end를 위한것임,back-end로 안넘어간다.
-const CREATE_ACCOUNT_MUTATION = gql`
+export const CREATE_ACCOUNT_MUTATION = gql`
   mutation createAccountMutation($createAccountInput: CreateAccountInput!) {
     createAccount(input: $createAccountInput) {
       ok
