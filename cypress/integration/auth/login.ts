@@ -1,7 +1,7 @@
 describe("Log In", () => {
   const user = cy;
   it("should see login page", () => {
-    user.visit("/").title().should("eq", "Login | Nuber Eats");
+    user.visit("/").title().should("eq", "Login | Huber Eats");
   });
   it("can see email / password validation errors", () => {
     user.visit("/");
@@ -16,7 +16,7 @@ describe("Log In", () => {
       .clear();
     user.findByRole("alert").should("have.text", "Password is required");
   });
-  it("can fill out the form", () => {
+  it("can fill out the form and log in", () => {
     user.visit("/");
     user.findByPlaceholderText(/email/i).type("nico@nomadcoders.co");
     user.findByPlaceholderText(/password/i).type("121212");
