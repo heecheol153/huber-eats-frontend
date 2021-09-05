@@ -45,7 +45,7 @@ export const ConfirmEmail = () => {
     }
   );
   useEffect(() => {
-    const [_, code] = window.location.href.split("code=");
+    const [, code] = window.location.href.split("code=");
     verifyEmail({
       variables: {
         input: {
