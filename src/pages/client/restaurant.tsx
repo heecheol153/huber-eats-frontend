@@ -2,7 +2,8 @@ import { gql, useQuery } from "@apollo/client";
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
-import { RESTAURANT_FRAGMENT } from "../../fragments";
+import { Dish } from "../../components/dish";
+import { DISH_FRAGMENT, RESTAURANT_FRAGMENT } from "../../fragments";
 import {
   restaurant,
   restaurantVariables,
@@ -15,17 +16,21 @@ const RESTAURANT_QUERY = gql`
       error
       restaurant {
         ...RestaurantParts
+        menu {
+          ...DishParts
+        }
       }
     }
   }
   ${RESTAURANT_FRAGMENT}
+  ${DISH_FRAGMENT}
 `;
 
 interface IRestaurantParams {
   id: string;
 }
 
-//react-router-dom은 3개의hook을 준다.중요한건 useLocation,useHistory,useParams
+// react-router-dom은 3개의hook을 준다.중요한건 useLocation,useHistory,useParams
 export const Restaurant = () => {
   const params = useParams<IRestaurantParams>(); //parameters을 가져온다.
   const { loading, data } = useQuery<restaurant, restaurantVariables>(
@@ -38,7 +43,7 @@ export const Restaurant = () => {
       },
     }
   );
-  //console.log(data);
+  console.log(data);
   return (
     <div>
       <Helmet>
@@ -59,6 +64,18 @@ export const Restaurant = () => {
             {data?.restaurant.restaurant?.address}
           </h6>
         </div>
+      </div>
+      <div>
+        {data?.restaurant.restaurant?.menu.map((dish, index) => (
+          <Dish
+            key={index}
+            name={dish.name}
+            description={dish.description}
+            price={dish.price}
+            isCustomer={true}
+            options={dish.options}
+          />
+        ))}
       </div>
     </div>
   );

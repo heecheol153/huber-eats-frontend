@@ -1,8 +1,19 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useParams } from "react-router-dom";
 import { Dish } from "../../components/dish";
+import {
+  VictoryAxis,
+  VictoryBar,
+  VictoryChart,
+  VictoryLabel,
+  VictoryLine,
+  VictoryPie,
+  VictoryTheme,
+  VictoryTooltip,
+  VictoryVoronoiContainer,
+} from "victory";
 import {
   DISH_FRAGMENT,
   ORDERS_FRAGMENT,
@@ -13,6 +24,10 @@ import {
   myRestaurantVariables,
 } from "../../__generated__/myRestaurant";
 import { useMe } from "../../hooks/useMe";
+import {
+  createPayment,
+  createPaymentVariables,
+} from "../../__generated__/createPayment";
 
 export const MY_RESTAURANT_QUERY = gql`
   query myRestaurant($input: MyRestaurantInput!) {
@@ -32,6 +47,16 @@ export const MY_RESTAURANT_QUERY = gql`
   }
   ${RESTAURANT_FRAGMENT}
   ${DISH_FRAGMENT}
+  ${ORDERS_FRAGMENT}
+`;
+
+const CREATE_PAYMENT_MUTATION = gql`
+  mutation createPayment($input: CreatePaymentInput!) {
+    createPayment(input: $input) {
+      ok
+      error
+    }
+  }
 `;
 
 interface IParams {
@@ -50,6 +75,18 @@ export const MyRestaurant = () => {
       },
     }
   );
+  console.log(data);
+  const onCompleted = (data: createPayment) => {
+    if (data.createPayment.ok) {
+      alert("Your restaurant is being promoted!");
+    }
+  };
+  const [createPaymentMutation, { loading }] = useMutation<
+    createPayment,
+    createPaymentVariables
+  >(CREATE_PAYMENT_MUTATION, {
+    onCompleted,
+  });
   const { data: userData } = useMe();
   const triggerPaddle = () => {
     if (userData?.me.email) {
@@ -57,8 +94,18 @@ export const MyRestaurant = () => {
       window.Paddle.Setup({ vendor: 31465 });
       // @ts-ignore
       window.Paddle.Checkout.open({
-        product: 63879,
+        product: 638793,
         email: userData.me.email,
+        successCallback: (data: any) => {
+          createPaymentMutation({
+            variables: {
+              input: {
+                transactionId: data.checkout.id,
+                restaurantId: +id,
+              },
+            },
+          });
+        },
       });
     }
   };
@@ -108,6 +155,48 @@ export const MyRestaurant = () => {
               ))}
             </div>
           )}
+        </div>
+        <div>
+          <h4>Sales</h4>
+          <div>
+            <VictoryChart
+              height={500}
+              theme={VictoryTheme.material}
+              width={window.innerWidth}
+              domainPadding={50}
+              containerComponent={<VictoryVoronoiContainer />}
+            >
+              <VictoryLine
+                labels={({ datum }) => `$${datum.y}`}
+                labelComponent={
+                  <VictoryTooltip
+                    style={{ fontSize: 18 } as any}
+                    renderInPortal
+                    dy={-20}
+                  />
+                }
+                data={data?.myRestaurant.restaurant?.orders.map((order) => ({
+                  x: order.createdAt,
+                  y: order.total,
+                }))}
+                interpolation="natural"
+                style={{
+                  data: {
+                    strokeWidth: 5,
+                  },
+                }}
+              />
+              <VictoryAxis
+                tickLabelComponent={<VictoryLabel renderInPortal />}
+                style={{
+                  tickLabels: {
+                    fontSize: 20,
+                  } as any,
+                }}
+                tickFormat={(tick) => new Date(tick).toLocaleDateString("ja")}
+              />
+            </VictoryChart>
+          </div>
         </div>
       </div>
     </div>
