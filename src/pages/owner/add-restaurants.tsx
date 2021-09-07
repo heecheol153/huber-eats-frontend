@@ -107,7 +107,7 @@ export const AddRestaurant = () => {
   return (
     <div className="container flex flex-col items-center mt-52">
       <Helmet>
-        <title>Add Restaurant | Nuber Eats</title>
+        <title>Add Restaurant | Huber Eats</title>
       </Helmet>
       <h4 className="font-semibold text-2xl mb-3">Add Restaurant</h4>
       <form
