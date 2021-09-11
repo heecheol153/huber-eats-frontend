@@ -1,8 +1,6 @@
 import React from "react";
-import GoogleMapReact from "google-map-react";
 import { useEffect, useState } from "react";
-import googleMapReact from "google-map-react";
-import { ConfigurationServicePlaceholders } from "aws-sdk/lib/config_service_placeholders";
+import GoogleMapReact from "google-map-react";
 
 interface ICoords {
   lat: number;
@@ -55,6 +53,40 @@ export const Dashboard = () => {
     setMap(map);
     setMaps(maps);
   };
+  const onGetRouteClick = () => {
+    if (map) {
+      const directionsService = new google.maps.DirectionsService();
+      const directionsRenderer = new google.maps.DirectionsRenderer({
+        polylineOptions: {
+          strokeColor: "#000",
+          strokeOpacity: 1,
+          strokeWeight: 58,
+        },
+      });
+      directionsRenderer.setMap(map);
+      directionsService.route(
+        {
+          origin: {
+            location: new google.maps.LatLng(
+              driverCoords.lat,
+              driverCoords.lng
+            ),
+          },
+          destination: {
+            location: new google.maps.LatLng(
+              driverCoords.lat + 0.05,
+              driverCoords.lng + 0.05
+            ),
+          },
+          travelMode: google.maps.TravelMode.DRIVING,
+        },
+        (result) => {
+          directionsRenderer.setDirections(result);
+          //console.log(result, status);
+        }
+      );
+    }
+  };
   return (
     <div>
       <div
@@ -65,16 +97,15 @@ export const Dashboard = () => {
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={onApiLoaded}
           defaultZoom={16}
-          draggable={false}
+          draggable={true}
           defaultCenter={{
             lat: 36.58,
             lng: 125.95,
           }}
           bootstrapURLKeys={{ key: "AIzaSyDwu5TwKK2NE-TboTH693zFRrG37BB4Mu8" }}
-        >
-          <Driver lat={driverCoords.lat} lng={driverCoords.lng} />
-        </GoogleMapReact>
+        ></GoogleMapReact>
       </div>
+      <button onClick={onGetRouteClick}>Get route</button>
     </div>
   );
 };
