@@ -91,7 +91,7 @@ export const Login = () => {
               pattern:
                 /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
             })}
-            //name="email"
+            name="email"
             required
             type="email"
             placeholder="Email"
@@ -108,7 +108,7 @@ export const Login = () => {
               required: "Password is required",
             })}
             required
-            //name="password"
+            name="password"
             type="password"
             placeholder="Password"
             className="input"

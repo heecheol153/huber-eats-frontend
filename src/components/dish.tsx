@@ -12,7 +12,6 @@ interface IDishProps {
   options?: restaurant_restaurant_restaurant_menu_options[] | null;
   addItemToOrder?: (dishId: number) => void;
   removeFromOrder?: (dishId: number) => void;
-  addOptionToItem?: (dishId: number, option: any) => void;
 }
 
 export const Dish: React.FC<IDishProps> = ({
@@ -40,7 +39,6 @@ export const Dish: React.FC<IDishProps> = ({
   };
   return (
     <div
-      onClick={onCLick}
       className={` px-8 py-4 border cursor-pointer transition-all ${
         isSelected ? "border-gray-800" : "hover:border-gray-800"
       }`}

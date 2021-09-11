@@ -44,7 +44,7 @@ export const Search = () => {
         },
       },
     });
-  }, [history, location]);
+  }, [history, location, callQuery]);
   console.log(loading, data, called);
   //const location = useLocation();
   return (

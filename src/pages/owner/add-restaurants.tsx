@@ -9,7 +9,6 @@ import {
   createRestaurant,
   createRestaurantVariables,
 } from "../../__generated__/createRestaurant";
-import { CREATE_ACCOUNT_MUTATION } from "../create-account";
 import { useHistory } from "react-router-dom";
 
 const CREATE_RESTAURANT_MUTATION = gql`

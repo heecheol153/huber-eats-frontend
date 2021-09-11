@@ -6,7 +6,6 @@ import { Login, LOGIN_MUTATION } from "../login";
 import { HelmetProvider } from "react-helmet-async";
 import { BrowserRouter as Router } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
-import { debug } from "console";
 
 describe("<Login />", () => {
   let renderResult: RenderResult;

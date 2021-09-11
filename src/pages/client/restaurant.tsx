@@ -212,6 +212,7 @@ export const Restaurant = () => {
             </button>
           </div>
         )}
+
         <div className="w-full grid mt-16 md:grid-cols-3 gap-x-5 gap-y-10">
           {data?.restaurant.restaurant?.menu.map((dish, index) => (
             <Dish

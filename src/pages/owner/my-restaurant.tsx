@@ -129,7 +129,7 @@ export const MyRestaurant = () => {
     if (subscriptionData?.pendingOrders.id) {
       history.push(`/orders/${subscriptionData.pendingOrders.id}`);
     }
-  }, [subscriptionData]);
+  }, [subscriptionData, history]);
   return (
     <div>
       <Helmet>
@@ -177,9 +177,9 @@ export const MyRestaurant = () => {
             </div>
           )}
         </div>
-        <div>
-          <h4>Sales</h4>
-          <div>
+        <div className="mt-20 mb-10">
+          <h4 className="text-center text-2xl font-medium">Sales</h4>
+          <div className=" mt-10">
             <VictoryChart
               height={500}
               theme={VictoryTheme.material}
@@ -214,7 +214,7 @@ export const MyRestaurant = () => {
                     fontSize: 20,
                   } as any,
                 }}
-                tickFormat={(tick) => new Date(tick).toLocaleDateString("ja")}
+                tickFormat={(tick) => new Date(tick).toLocaleDateString("ko")}
               />
             </VictoryChart>
           </div>

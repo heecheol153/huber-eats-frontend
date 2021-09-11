@@ -1,6 +1,6 @@
 import { gql, useApolloClient, useMutation } from "@apollo/client";
 import React from "react";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import { Button } from "../../components/button";
 import { useMe } from "../../hooks/useMe";
@@ -90,14 +90,14 @@ export const EditProfile = () => {
             pattern:
               /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
           })}
-          //name="email"
+          name="email"
           className="input"
           type="email"
           placeholder="Email"
         />
         <input
           {...register("password")}
-          //name="password"
+          name="password"
           className="input"
           type="password"
           placeholder="Password"

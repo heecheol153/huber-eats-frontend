@@ -7,6 +7,7 @@ import {
   verifyEmail,
   verifyEmailVariables,
 } from "../../__generated__/verifyEmail";
+
 const VERIFY_EMAIL_MUTATION = gql`
   mutation verifyEmail($input: VerifyEmailInput!) {
     verifyEmail(input: $input) {
@@ -15,6 +16,7 @@ const VERIFY_EMAIL_MUTATION = gql`
     }
   }
 `;
+
 export const ConfirmEmail = () => {
   const { data: userData } = useMe();
   const client = useApolloClient();

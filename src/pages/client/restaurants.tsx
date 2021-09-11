@@ -65,9 +65,13 @@ export const Restaurants = () => {
       <Helmet>
         <title>Home | Huber Eats</title>
       </Helmet>
-      <form className="bg-gray-800 w-full py-40 flex items-center justify-center">
+      <form
+        onSubmit={handleSubmit(onSearchSubmit)}
+        className="bg-gray-800 w-full py-40 flex items-center justify-center"
+      >
         <input
           {...register("searchTerm", { required: true, min: 3 })}
+          name="searchTerm"
           type="Search"
           className="input rounded-md border-0 w-3/4 md:w-3/12"
           placeholder="Search restaurants..."

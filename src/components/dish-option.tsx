@@ -32,7 +32,7 @@ export const DishOption: React.FC<IDishOptionProps> = ({
       }`}
     >
       <span className="mr-2">{name}</span>
-      {extra && <span className="text-sm opacity-75">(${extra})</span>}
+      {<span className="text-sm opacity-75">(${extra})</span>}
     </span>
   );
 };

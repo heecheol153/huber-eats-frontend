@@ -1,8 +1,7 @@
 import { gql, useMutation, useQuery, useSubscription } from "@apollo/client";
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import { FULL_ORDER_FRAGMENT } from "../fragments";
 import { useMe } from "../hooks/useMe";
 import { editOrder, editOrderVariables } from "../__generated__/editOrder";
@@ -46,6 +45,7 @@ const EDIT_ORDER = gql`
 interface IParams {
   id: string;
 }
+
 export const Order = () => {
   const params = useParams<IParams>();
   const { data: userData } = useMe();
@@ -89,7 +89,7 @@ export const Order = () => {
         },
       });
     }
-  }, [data]);
+  }, [data, params.id, subscribeToMore]);
   const onButtonClick = (newStatus: OrderStatus) => {
     editOrderMutation({
       variables: {
@@ -128,7 +128,7 @@ export const Order = () => {
           <div className="border-t border-b py-5 border-gray-700">
             Driver:{" "}
             <span className="font-medium">
-              {data?.getOrder.order?.driver?.email || "Not yet"}
+              {data?.getOrder.order?.driver?.email || "Not yet."}
             </span>
           </div>
           {userData?.me.role === "Client" && (
@@ -156,8 +156,8 @@ export const Order = () => {
               )}
               {data?.getOrder.order?.status !== OrderStatus.Cooking &&
                 data?.getOrder.order?.status !== OrderStatus.Pending && (
-                  <span className="text-center mt-5 mb-3 text-2xl text-lime-600">
-                    Status:{data?.getOrder.order?.status}
+                  <span className=" text-center mt-5 mb-3 text-2xl text-lime-600">
+                    Status: {data?.getOrder.order?.status}
                   </span>
                 )}
             </>

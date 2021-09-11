@@ -15,7 +15,7 @@ export const isLoggedInVar = makeVar(Boolean(token)); //(null)을boolean값으�
 export const authTokenVar = makeVar(token); //token변수 makeVar를 해주고 기본값을갖는다
 
 const wsLink = new WebSocketLink({
-  uri: "ws://localhost:4000/graphql",
+  uri: `ws://localhost:4000/graphql`,
   options: {
     reconnect: true,
     connectionParams: {
