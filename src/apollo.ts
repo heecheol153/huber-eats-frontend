@@ -15,7 +15,10 @@ export const isLoggedInVar = makeVar(Boolean(token)); //(null)을boolean값으�
 export const authTokenVar = makeVar(token); //token변수 makeVar를 해주고 기본값을갖는다
 
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:4000/graphql`,
+  uri:
+    process.env.NODE_ENV === "production"
+      ? "wss://huber-eats-back-end.herokuapp.com/graphql"
+      : `ws://localhost:4000/graphql`,
   options: {
     reconnect: true,
     connectionParams: {
@@ -29,7 +32,10 @@ const wsLink = new WebSocketLink({
 //console.log("default value of authToken is:", authTokenVar());
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:4000/graphql",
+  uri:
+    process.env.NODE_ENV === "production"
+      ? "https://huber-eats-back-end.herokuapp.com/graphql"
+      : "http://localhost:4000/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {
